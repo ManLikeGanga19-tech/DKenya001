@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import VideoCard from "./components/VideoCard/VideoCard";
 import VideoOne from "../src/assets/video1.mp4";
 import ImageOne from "../src/assets/hqdefault.avif";
@@ -15,48 +15,45 @@ const videos = [
     },
     {
         id: 2,
-        title: "Learn React in 10 Minutes ",
+        title: "Learn React in 10 Minutes",
         thumbnail: ImageOne,
-        VideoSrc: VideoOne,
+        videoSrc: VideoOne,
         views: "80K",
         TimeUploaded: "2 hours"
-
     },
     {
         id: 3,
         title: "Mastering Tailwind CSS",
         thumbnail: ImageOne,
-        VideoSrc: VideoOne,
+        videoSrc: VideoOne,
         views: "50K",
         TimeUploaded: "2 hours"
-
     },
     {
         id: 4,
         title: "Mastering Python",
         thumbnail: ImageOne,
-        VideoSrc: VideoOne,
+        videoSrc: VideoOne,
         views: "50K",
         TimeUploaded: "2 hours"
-
     },
 ];
 
 const VideoList = () => {
     return (
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-            <Grid container spacing={5} justifyContent="center">
+        <Box sx={{ overflowX: "auto", whiteSpace: "nowrap", padding: 2 }}>
+            <Box sx={{ display: "flex", gap: 6 }}>
                 {videos.map((video) => (
-                    <Grid item key={video.id}>
-                        <VideoCard
-                            title={video.title}
-                            thumbnail={video.thumbnail}
-                            views={video.views}
-                            TimeUploaded={video.TimeUploaded}
-                        />
-                    </Grid>
+                    <VideoCard
+                        key={video.id}
+                        title={video.title}
+                        thumbnail={video.thumbnail}
+                        videoSrc={video.videoSrc}
+                        views={video.views}
+                        TimeUploaded={video.TimeUploaded}
+                    />
                 ))}
-            </Grid>
+            </Box>
         </Box>
     );
 };

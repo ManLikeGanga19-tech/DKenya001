@@ -1,43 +1,49 @@
 import React, { useState, useRef } from "react";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Video from "../../assets/video1.mp4";
 
-const VideoCard = ({ title, thumbnail, views, TimeUploaded }) => {
+const VideoCard = ({ id, title, thumbnail, views, TimeUploaded }) => {
     const [isHovered, setIsHovered] = useState(false);
-    const videoRef = useRef(null); // Reference to control the video
+    const videoRef = useRef(null);
+    const navigate = useNavigate(); // Initialize navigation
 
-    // Start video on hover and stop it after 10 seconds
     const handleMouseEnter = () => {
         setIsHovered(true);
         if (videoRef.current) {
-            videoRef.current.currentTime = 0; // Start from beginning
+            videoRef.current.currentTime = 0;
             videoRef.current.play();
 
-            // Stop video after 10 seconds
             setTimeout(() => {
                 if (videoRef.current) {
                     videoRef.current.pause();
-                    setIsHovered(false); // Revert to thumbnail
+                    setIsHovered(false);
                 }
             }, 10000);
         }
     };
 
+    // Navigate to the video page with the video ID
+    const handleCardClick = () => {
+        navigate(`/video/${id}`, { state: { title, videoSrc: Video } });
+    };
+
     return (
         <Card
-            sx={{ width: 300, cursor: "pointer", borderRadius: 2, overflow: "hidden" }}
+            sx={{ width: 400, cursor: "pointer", borderRadius: 2, overflow: "hidden" }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={handleCardClick} // Open new page on click
         >
             {isHovered ? (
                 <CardMedia
                     component="video"
-                    ref={videoRef} // Attach ref to control playback
+                    ref={videoRef}
                     src={Video}
                     autoPlay
                     muted
                     playsInline
-                    loop={false} // Do not loop
+                    loop={false}
                     style={{ height: 180, objectFit: "cover" }}
                 />
             ) : (
