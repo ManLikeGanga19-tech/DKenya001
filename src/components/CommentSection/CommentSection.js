@@ -50,12 +50,21 @@ const CommentSection = () => {
                     placeholder="Add a comment..."
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
+                    sx={{
+                        "& .MuiOutlinedInput-root": {
+                            "&.Mui-focused fieldset": { borderColor: "black" } // Change outline to black on focus
+                        }
+                    }}
                 />
                 <Button
                     variant="contained"
-                    color="primary"
                     onClick={handleAddComment}
-                    sx={{ width: isSmallScreen ? "100%" : "auto" }}
+                    sx={{
+                        width: isSmallScreen ? "100%" : "auto",
+                        backgroundColor: "black",
+                        color: "white",
+                        "&:hover": { backgroundColor: "#333" } // Darker shade on hover
+                    }}
                 >
                     Post
                 </Button>
@@ -74,7 +83,7 @@ const CommentSection = () => {
                             <Typography variant="body2">{comment.text}</Typography>
                         </Box>
                         <Box display="flex" gap={1}>
-                            <IconButton color="primary" onClick={() => handleLike(comment.id)}>
+                            <IconButton sx={{ color: "#00a152" }} onClick={() => handleLike(comment.id)}>
                                 <ThumbUp /> <Typography>{comment.likes}</Typography>
                             </IconButton>
                             <IconButton color="error" onClick={() => handleDislike(comment.id)}>
