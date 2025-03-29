@@ -25,12 +25,19 @@ const VideoCard = ({ id, title, thumbnail, views, TimeUploaded }) => {
 
     // Navigate to the video page with the video ID
     const handleCardClick = () => {
-        navigate(`/video/${id}`, { state: { title, videoSrc: Video } });
+        navigate(`/video/${title}`, { state: { title, videoSrc: Video } });
     };
 
     return (
         <Card
-            sx={{ width: 400, cursor: "pointer", borderRadius: 2, overflow: "hidden" }}
+            sx={{ 
+                width: { xs: "100%", sm: "90%", md: "400px" }, 
+                cursor: "pointer", 
+                borderRadius: 2, 
+                overflow: "hidden", 
+                maxWidth: "400px",
+                margin: "auto"
+            }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={() => setIsHovered(false)}
             onClick={handleCardClick} // Open new page on click

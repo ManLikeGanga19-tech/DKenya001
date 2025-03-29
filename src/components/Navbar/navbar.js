@@ -15,15 +15,11 @@ import {
   Divider,
   useMediaQuery,
   useTheme,
-  Dialog,
-  DialogContent,
 } from "@mui/material";
-import { styled, alpha } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import CloseIcon from "@mui/icons-material/Close";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 
@@ -70,7 +66,9 @@ const Navbar = () => {
         ].map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton>
-              <ListItemIcon sx={{ color: darkMode ? "#fff" : "#000" }}>{item.icon}</ListItemIcon>
+              <ListItemIcon sx={{ color: darkMode ? "#fff" : "#000" }}>
+                {item.icon}
+              </ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>
@@ -85,7 +83,9 @@ const Navbar = () => {
         ].map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton>
-              <ListItemIcon sx={{ color: darkMode ? "#fff" : "#000" }}>{item.icon}</ListItemIcon>
+              <ListItemIcon sx={{ color: darkMode ? "#fff" : "#000" }}>
+                {item.icon}
+              </ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>
@@ -103,23 +103,21 @@ const Navbar = () => {
           color: darkMode ? "#fff" : "#000",
         }}
       >
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between", px: 2 }}>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between", px: { xs: 1, sm: 2 } }}>
           {/* Left Section (Menu Button) */}
           <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
             <MenuIcon />
           </IconButton>
 
-          
-
           {/* Right Section (Icons) */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0.5, sm: 1 } }}>
             <IconButton color="inherit" onClick={toggleTheme}>
               {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
-            <IconButton color="inherit">
+            <IconButton color="inherit" sx={{ display: {  sm: "flex" } }}>
               <VideoCallIcon />
             </IconButton>
-            <IconButton color="inherit">
+            <IconButton color="inherit" sx={{ display: {  sm: "flex" } }}>
               <NotificationsIcon />
             </IconButton>
             <IconButton color="inherit">
