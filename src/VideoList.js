@@ -15,8 +15,9 @@ const videos = [
     },
     {
         id: 2,
-        title: "Learn React in 10 Minutes",
-        thumbnail: VideoOne,
+        title: "Learn React in 10 Minutes ",
+        thumbnail: ImageOne,
+        VideoSrc: VideoOne,
         views: "80K",
         TimeUploaded: "2 hours"
 
@@ -24,7 +25,8 @@ const videos = [
     {
         id: 3,
         title: "Mastering Tailwind CSS",
-        thumbnail: "https://source.unsplash.com/400x300/?design",
+        thumbnail: ImageOne,
+        VideoSrc: VideoOne,
         views: "50K",
         TimeUploaded: "2 hours"
 
@@ -32,7 +34,8 @@ const videos = [
     {
         id: 4,
         title: "Mastering Python",
-        thumbnail: "https://source.unsplash.com/400x300/?design",
+        thumbnail: ImageOne,
+        VideoSrc: VideoOne,
         views: "50K",
         TimeUploaded: "2 hours"
 
