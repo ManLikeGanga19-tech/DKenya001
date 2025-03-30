@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar/navbar";
 import VideoList from "./VideoList";
 import VideoPage from "../src/pages/VideoPage";
 import { Box } from "@mui/material";
+import SignIn from "./pages/auth/signin";
+import SignUp from "./pages/auth/signup";
 
 const App = () => {
   return (
@@ -14,6 +16,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<VideoList />} />
             <Route path="/video/:title" element={<VideoPage />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </Box>
       </Box>

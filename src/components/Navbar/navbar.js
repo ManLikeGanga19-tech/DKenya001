@@ -13,9 +13,13 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  Menu,
+  MenuItem,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { Link } from "react-router-dom"; // For navigation
+
 import MenuIcon from "@mui/icons-material/Menu";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -35,6 +39,7 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null); // State for menu
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -45,6 +50,16 @@ const Navbar = () => {
   const toggleTheme = () => {
     setDarkMode(!darkMode);
   };
+
+  const handleAccountClick = (event) => {
+    setAnchorEl(event.currentTarget); // Open menu
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null); // Close menu
+  };
+
+  
 
   const DrawerList = (
     <Box
@@ -114,15 +129,35 @@ const Navbar = () => {
             <IconButton color="inherit" onClick={toggleTheme}>
               {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
-            <IconButton color="inherit" sx={{ display: {  sm: "flex" } }}>
+            <IconButton color="inherit" sx={{ display: { sm: "flex" } }}>
               <VideoCallIcon />
             </IconButton>
-            <IconButton color="inherit" sx={{ display: {  sm: "flex" } }}>
+            <IconButton color="inherit" sx={{ display: { sm: "flex" } }}>
               <NotificationsIcon />
             </IconButton>
-            <IconButton color="inherit">
+            {/* Account Icon with Menu */}
+            <IconButton color="inherit" onClick={handleAccountClick}>
               <AccountCircleIcon />
             </IconButton>
+
+            {/* Menu for Sign In / Sign Up */}
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              PaperProps={{
+                sx: {
+                  width: "200px",
+                },
+              }}
+            >
+             <MenuItem onClick={handleClose} component={Link} to="/signin">
+                Sign In
+              </MenuItem>
+              <MenuItem onClick={handleClose} component={Link} to="/signup">
+                Sign Up
+              </MenuItem>
+            </Menu>
           </Box>
         </Toolbar>
       </AppBar>

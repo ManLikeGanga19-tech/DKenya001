@@ -28,10 +28,11 @@ const VideoCard = ({ id, title, thumbnail, views, TimeUploaded }) => {
         setLoading(true);
 
         setTimeout(() => {
+            videoRef.current.pause();
             setLoading(false);
             navigate(`/video/${title}`, { state: { title, videoSrc: Video } });
-            window.scrollTo(0, 0); // Scroll to top after navigation
-        }, 1500); // Simulate loading delay
+            window.scrollTo(0, 0); 
+        }, 1500); 
     };
 
     return (

@@ -43,32 +43,7 @@ const CommentSection = () => {
             margin: "auto",
         }}>
             <Typography variant="h5" gutterBottom>Comments</Typography>
-            <Box display="flex" flexDirection={isSmallScreen ? "column" : "row"} gap={1}>
-                <TextField
-                    fullWidth
-                    variant="outlined"
-                    placeholder="Add a comment..."
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    sx={{
-                        "& .MuiOutlinedInput-root": {
-                            "&.Mui-focused fieldset": { borderColor: "black" } // Change outline to black on focus
-                        }
-                    }}
-                />
-                <Button
-                    variant="contained"
-                    onClick={handleAddComment}
-                    sx={{
-                        width: isSmallScreen ? "100%" : "auto",
-                        backgroundColor: "black",
-                        color: "white",
-                        "&:hover": { backgroundColor: "#333" } // Darker shade on hover
-                    }}
-                >
-                    Post
-                </Button>
-            </Box>
+            
             {comments.map(comment => (
                 <Card key={comment.id} sx={{ marginTop: 2, padding: 1 }}>
                     <CardContent sx={{
@@ -92,8 +67,36 @@ const CommentSection = () => {
                         </Box>
                     </CardContent>
                 </Card>
+                
             ))}
+            <Box display="flex" flexDirection={isSmallScreen ? "column" : "row"} gap={1} mt={"6px"}>
+                <TextField
+                    fullWidth
+                    variant="outlined"
+                    placeholder="Add a comment..."
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    sx={{
+                        "& .MuiOutlinedInput-root": {
+                            "&.Mui-focused fieldset": { borderColor: "black" } 
+                        }
+                    }}
+                />
+                <Button
+                    variant="contained"
+                    onClick={handleAddComment}
+                    sx={{
+                        width: isSmallScreen ? "100%" : "auto",
+                        backgroundColor: "black",
+                        color: "white",
+                        "&:hover": { backgroundColor: "#333" } 
+                    }}
+                >
+                    Post
+                </Button>
+            </Box>
         </Box>
+        
     );
 };
 
