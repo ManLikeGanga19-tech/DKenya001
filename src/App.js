@@ -6,13 +6,18 @@ import VideoPage from "../src/pages/VideoPage";
 import { Box } from "@mui/material";
 import SignIn from "./pages/auth/signin";
 import SignUp from "./pages/auth/signup";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   return (
-    <Router>  {/* ✅ Ensures that useNavigate() works */}
-      <Box>
+    <Router>
+      <Box
+        display="flex"
+        flexDirection="column"
+        minHeight="100vh"
+      >
         <Navbar />
-        <Box sx={{ mt: 10, padding: 2 }}>
+        <Box component="main" sx={{ flex: 1, mt: 10, px: 2 }}>
           <Routes>
             <Route path="/" element={<VideoList />} />
             <Route path="/video/:title" element={<VideoPage />} />
@@ -20,6 +25,7 @@ const App = () => {
             <Route path="/signup" element={<SignUp />} />
           </Routes>
         </Box>
+        <Footer />
       </Box>
     </Router>
   );
