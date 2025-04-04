@@ -19,7 +19,7 @@ const SignInPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Sign In Submitted", { emailOrPhone, password });
+    console.log("Sign In Submitted", { emailOrPhone, password })
   };
 
   return (
