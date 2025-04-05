@@ -12,16 +12,14 @@ const VideoCard = ({ id, title, thumbnail, views, TimeUploaded }) => {
   const handleMouseEnter = () => {
     setIsHovered(true);
 
-    // Give React time to render the video before trying to play
     setTimeout(() => {
       const video = videoRef.current;
       if (video) {
         video.currentTime = 0;
         video.play().catch((err) => {
-          console.warn("Playback error:", err); // Catch playback error to prevent crashing
+          console.warn("Playback error:", err); 
         });
 
-        // Pause after 10 seconds if still mounted
         setTimeout(() => {
           if (videoRef.current) {
             video.pause();
@@ -29,7 +27,7 @@ const VideoCard = ({ id, title, thumbnail, views, TimeUploaded }) => {
           }
         }, 10000);
       }
-    }, 50); // Slight delay to ensure video is in the DOM
+    }, 50);
   };
 
   const handleCardClick = () => {
@@ -38,7 +36,7 @@ const VideoCard = ({ id, title, thumbnail, views, TimeUploaded }) => {
     setTimeout(() => {
       setLoading(false);
       navigate(`/video/${title}`, { state: { title, videoSrc: Video } });
-      window.scrollTo(0, 0); // Scroll to the top of the page on video click
+      window.scrollTo(0, 0); 
     }, 1500);
   };
 
