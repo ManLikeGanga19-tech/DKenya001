@@ -1,20 +1,31 @@
 import React from "react";
-import { Box, Typography, IconButton, Stack, Container } from "@mui/material";
+import {
+  Box,
+  Typography,
+  IconButton,
+  Stack,
+  Container,
+  useTheme,
+} from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 const Footer = () => {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
+
   return (
     <Box
       component="footer"
       sx={{
         width: "100%",
-        backgroundColor: "#f7f7f7",
+        backgroundColor: isDark ? "#121212" : "#f7f7f7",
         py: 3,
         mt: "auto",
-        borderTop: "1px solid #ddd",
+        borderTop: "1px solid",
+        borderColor: isDark ? "#333" : "#ddd",
       }}
     >
       <Container maxWidth="xl" sx={{ textAlign: "center" }}>
@@ -27,62 +38,26 @@ const Footer = () => {
         </Typography>
 
         <Stack direction="row" spacing={2} justifyContent="center" mt={1}>
-          <IconButton
-            aria-label="Facebook"
-            href="https://facebook.com"
-            target="_blank"
-            rel="noopener"
-            sx={{
-              color: "black",
-              "&:hover": {
-                color: "gray",
-              },
-            }}
-          >
-            <FacebookIcon />
-          </IconButton>
-          <IconButton
-            aria-label="Twitter"
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener"
-            sx={{
-              color: "black",
-              "&:hover": {
-                color: "gray",
-              },
-            }}
-          >
-            <TwitterIcon />
-          </IconButton>
-          <IconButton
-            aria-label="Instagram"
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener"
-            sx={{
-              color: "black",
-              "&:hover": {
-                color: "gray",
-              },
-            }}
-          >
-            <InstagramIcon />
-          </IconButton>
-          <IconButton
-            aria-label="LinkedIn"
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener"
-            sx={{
-              color: "black",
-              "&:hover": {
-                color: "gray",
-              },
-            }}
-          >
-            <LinkedInIcon />
-          </IconButton>
+          {[FacebookIcon, TwitterIcon, InstagramIcon, LinkedInIcon].map(
+            (Icon, index) => (
+              <IconButton
+                key={index}
+                aria-label="social-icon"
+                href="#"
+                target="_blank"
+                rel="noopener"
+                sx={{
+                  color: isDark ? "#fff" : "#000",
+                  transition: "color 0.3s ease",
+                  "&:hover": {
+                    color: isDark ? "#90caf9" : "#1976d2",
+                  },
+                }}
+              >
+                <Icon />
+              </IconButton>
+            )
+          )}
         </Stack>
       </Container>
     </Box>

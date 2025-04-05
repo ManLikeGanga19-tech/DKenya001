@@ -18,7 +18,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { Link } from "react-router-dom"; // For navigation
+import { Link } from "react-router-dom";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
@@ -27,7 +27,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 
-// Drawer Icons
 import HistoryIcon from "@mui/icons-material/History";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -36,10 +35,9 @@ import ReportIcon from "@mui/icons-material/Report";
 import HelpIcon from "@mui/icons-material/Help";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 
-const Navbar = () => {
+const Navbar = ({ darkMode, toggleTheme }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null); // State for menu
+  const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -47,19 +45,13 @@ const Navbar = () => {
     setDrawerOpen(open);
   };
 
-  const toggleTheme = () => {
-    setDarkMode(!darkMode);
-  };
-
   const handleAccountClick = (event) => {
-    setAnchorEl(event.currentTarget); // Open menu
+    setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-    setAnchorEl(null); // Close menu
+    setAnchorEl(null);
   };
-
-  
 
   const DrawerList = (
     <Box
@@ -119,12 +111,10 @@ const Navbar = () => {
         }}
       >
         <Toolbar sx={{ display: "flex", justifyContent: "space-between", px: { xs: 1, sm: 2 } }}>
-          {/* Left Section (Menu Button) */}
           <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
             <MenuIcon />
           </IconButton>
 
-          {/* Right Section (Icons) */}
           <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0.5, sm: 1 } }}>
             <IconButton color="inherit" onClick={toggleTheme}>
               {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
@@ -135,23 +125,17 @@ const Navbar = () => {
             <IconButton color="inherit" sx={{ display: { sm: "flex" } }}>
               <NotificationsIcon />
             </IconButton>
-            {/* Account Icon with Menu */}
             <IconButton color="inherit" onClick={handleAccountClick}>
               <AccountCircleIcon />
             </IconButton>
 
-            {/* Menu for Sign In / Sign Up */}
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
               onClose={handleClose}
-              PaperProps={{
-                sx: {
-                  width: "200px",
-                },
-              }}
+              PaperProps={{ sx: { width: "200px" } }}
             >
-             <MenuItem onClick={handleClose} component={Link} to="/signin">
+              <MenuItem onClick={handleClose} component={Link} to="/signin">
                 Sign In
               </MenuItem>
               <MenuItem onClick={handleClose} component={Link} to="/signup">
@@ -162,7 +146,6 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Drawer */}
       <Drawer open={drawerOpen} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
