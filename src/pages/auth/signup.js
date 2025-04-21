@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import {
@@ -9,9 +9,11 @@ import {
   Box,
   Grid,
   Paper,
+  Link as MuiLink,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import AppleSignin from "react-apple-signin-auth";
+import FacebookIcon from "@mui/icons-material/Facebook";
 
 const SignUpPage = () => {
   const [emailOrPhone, setEmailOrPhone] = useState("");
@@ -27,6 +29,11 @@ const SignUpPage = () => {
     }
 
     console.log("Sign Up Submitted", { emailOrPhone, password });
+  };
+
+  const handleFacebookLogin = () => {
+    console.log("Facebook login clicked");
+    // Add Facebook login logic here
   };
 
   return (
@@ -69,36 +76,66 @@ const SignUpPage = () => {
             />
 
             <Box textAlign="center" sx={{ marginTop: 2 }}>
-              <Button variant="contained" color="primary" type="submit" fullWidth>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                fullWidth
+              >
                 Sign Up
               </Button>
             </Box>
           </form>
 
+          <Box textAlign="center" sx={{ marginTop: 2 }}>
+            <Typography variant="body2">
+              Already have an account?{" "}
+              <MuiLink component={Link} to="/signin" underline="hover">
+                Sign In
+              </MuiLink>
+            </Typography>
+          </Box>
+
           <Grid container spacing={2} sx={{ marginTop: 2 }}>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <GoogleLogin
-                onSuccess={(response) => console.log("Google Success:", response)}
+                onSuccess={(response) =>
+                  console.log("Google Sign-Up Success:", response)
+                }
                 onError={() => console.log("Google Sign-Up Error")}
+                width="100%"
+                useOneTap={false}
+                theme="outline"
+                text="signup_with" 
               />
             </Grid>
 
-            <Grid item xs={6}>
-              <AppleSignin
-                authOptions={{
-                  clientId: "YOUR_APPLE_CLIENT_ID",
-                  redirectURI: "YOUR_REDIRECT_URI",
-                  scope: "email name",
-                  responseMode: "query",
+            <Grid item xs={12}>
+              <Box
+                onClick={handleFacebookLogin}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "1px solid #fcfcfc",
+                  borderRadius: 1,
+                  padding: "10px 12px",
+                  backgroundColor: "#f8f8f8",
+                  cursor: "pointer",
+                  width: "100%",
                 }}
-                onSuccess={(response) => console.log("Apple Success:", response)}
-                onError={(error) => console.log("Apple Error:", error)}
-                render={(props) => (
-                  <Button variant="outlined" color="secondary" fullWidth onClick={props.onClick}>
-                    Apple
-                  </Button>
-                )}
-              />
+              >
+                <FacebookIcon color="primary" sx={{ marginRight: 1 }} />
+                <Typography
+                  sx={{
+                    color: "black",
+                    fontWeight: 500,
+                    fontSize: "14px",
+                  }}
+                >
+                  Sign up with Facebook
+                </Typography>
+              </Box>
             </Grid>
           </Grid>
         </Paper>
