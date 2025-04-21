@@ -9,7 +9,7 @@ import {useMediaQuery, useTheme} from "@mui/material";
 const videos = [
     {
         id: 1,
-        title: "How to Build a Web App with Next.js",
+        title: "I am Princess Mueni",
         thumbnail: ImageOne,
         videoSrc: VideoOne,
         views: "120K",
@@ -17,7 +17,7 @@ const videos = [
     },
     {
         id: 2,
-        title: "Learn React in 10 Minutes",
+        title: "I am mueni.",
         thumbnail: ImageOne,
         videoSrc: VideoOne,
         views: "80K",
@@ -25,7 +25,7 @@ const videos = [
     },
     {
         id: 3,
-        title: "Mastering Tailwind CSS",
+        title: "Hey, Bubba!",
         thumbnail: ImageOne,
         videoSrc: VideoOne,
         views: "50K",
@@ -33,7 +33,7 @@ const videos = [
     },
     {
         id: 4,
-        title: "Mastering Python",
+        title: "POV! ",
         thumbnail: ImageOne,
         videoSrc: VideoOne,
         views: "50K",
