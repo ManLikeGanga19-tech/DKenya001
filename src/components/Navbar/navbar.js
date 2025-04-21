@@ -34,6 +34,7 @@ import WhatshotIcon from "@mui/icons-material/Whatshot";
 import ReportIcon from "@mui/icons-material/Report";
 import HelpIcon from "@mui/icons-material/Help";
 import FeedbackIcon from "@mui/icons-material/Feedback";
+import HomeIcon from "@mui/icons-material/Home";
 
 const Navbar = ({ darkMode, toggleTheme }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -66,13 +67,22 @@ const Navbar = ({ darkMode, toggleTheme }) => {
     >
       <List>
         {[
-          { text: "History", icon: <HistoryIcon /> },
-          { text: "Watch Later", icon: <WatchLaterIcon /> },
-          { text: "Liked Videos", icon: <ThumbUpIcon /> },
-          { text: "Trending", icon: <WhatshotIcon /> },
+          { text: "Home", icon: <HomeIcon />, path: "/" },
+          { text: "History", icon: <HistoryIcon />, path: "/history" },
+          {
+            text: "Watch Later",
+            icon: <WatchLaterIcon />,
+            path: "/watch-later",
+          },
+          {
+            text: "Liked Videos",
+            icon: <ThumbUpIcon />,
+            path: "/liked-videos",
+          },
+          { text: "Trending", icon: <WhatshotIcon />, path: "/trending" },
         ].map((item) => (
           <ListItem key={item.text} disablePadding>
-            <ListItemButton>
+            <ListItemButton component={Link} to={item.path}>
               <ListItemIcon sx={{ color: darkMode ? "#fff" : "#000" }}>
                 {item.icon}
               </ListItemIcon>
@@ -84,12 +94,12 @@ const Navbar = ({ darkMode, toggleTheme }) => {
       <Divider />
       <List>
         {[
-          { text: "Report", icon: <ReportIcon /> },
-          { text: "Help", icon: <HelpIcon /> },
-          { text: "Send Feedback", icon: <FeedbackIcon /> },
+          { text: "Report", icon: <ReportIcon />, path: "/report" },
+          { text: "Help", icon: <HelpIcon />, path: "/help" },
+          { text: "Send Feedback", icon: <FeedbackIcon />, path: "/feedback" },
         ].map((item) => (
           <ListItem key={item.text} disablePadding>
-            <ListItemButton>
+            <ListItemButton component={Link} to={item.path}>
               <ListItemIcon sx={{ color: darkMode ? "#fff" : "#000" }}>
                 {item.icon}
               </ListItemIcon>
@@ -110,12 +120,29 @@ const Navbar = ({ darkMode, toggleTheme }) => {
           color: darkMode ? "#fff" : "#000",
         }}
       >
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between", px: { xs: 1, sm: 2 } }}>
-          <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            px: { xs: 1, sm: 2 },
+          }}
+        >
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={toggleDrawer(true)}
+          >
             <MenuIcon />
           </IconButton>
 
-          <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0.5, sm: 1 } }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: { xs: 0.5, sm: 1 },
+            }}
+          >
             <IconButton color="inherit" onClick={toggleTheme}>
               {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>

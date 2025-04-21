@@ -7,7 +7,10 @@ import VideoList from "./VideoList";
 import VideoPage from "../src/pages/VideoPage";
 import SignIn from "./pages/auth/signin";
 import SignUp from "./pages/auth/signup";
-
+import History from "./components/SideBar/History/history";
+import  WatchLater  from "./components/SideBar/WatchLater/WatchLater";
+import TrendingVideos from "./components/SideBar/Trending/TrendingVideos";
+import LikedVideos from "./components/SideBar/LikedVideos/LikedVideos";
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
 
@@ -34,6 +37,10 @@ const App = () => {
               <Route path="/video/:title" element={<VideoPage />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/history" element={<History/>}/>
+              <Route path="/watch-later" element={<WatchLater/>}/>
+              <Route path="/liked-videos" element={<LikedVideos/>}/>
+              <Route path="/trending" element={<TrendingVideos/>}/>
             </Routes>
           </Box>
           <Footer />
