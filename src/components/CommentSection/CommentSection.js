@@ -39,6 +39,7 @@ const CommentSection = () => {
     return (
         <Box sx={{
             width: isSmallScreen ? "100%" : "100%",
+
             padding: 2,
             margin: "auto",
         }}>

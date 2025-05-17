@@ -19,6 +19,7 @@ const RelatedVideos = () => {
         <Box sx={{ width: "50%", margin: "auto", mt: 1 }}>
             <Typography variant="h5" sx={{ textAlign: "center", mb: 3 }}>Related Videos</Typography>
 
+
             <Grid container spacing={1} justifyContent="center">
                 {relatedVideos.map(video => (
                     <Grid item xs={12} sm={6} md={4} key={video.id}>

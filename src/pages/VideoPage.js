@@ -14,6 +14,8 @@ import {
   PlaylistAddOutlined,
   WatchLaterOutlined,
 } from "@mui/icons-material";
+import { Box, Typography, IconButton, useMediaQuery, useTheme } from "@mui/material";
+import { ThumbUp, ThumbDown, WatchLater, PlaylistAdd } from "@mui/icons-material";
 import CommentSection from "../components/CommentSection/CommentSection";
 import RelatedVideos from "../components/RelatedVideos/RelatedVideos";
 
@@ -127,6 +129,7 @@ const VideoPage = () => {
       </Box>
     </Box>
   );
+
 };
 
 export default VideoPage;
