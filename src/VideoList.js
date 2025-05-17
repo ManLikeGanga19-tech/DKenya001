@@ -9,7 +9,7 @@ import {useMediaQuery, useTheme} from "@mui/material";
 const videos = [
     {
         id: 1,
-        title: "I am Princess Mueni",
+        title: "I am Daniel Orwenjo",
         thumbnail: ImageOne,
         videoSrc: VideoOne,
         views: "120K",
@@ -17,7 +17,7 @@ const videos = [
     },
     {
         id: 2,
-        title: "I am mueni.",
+        title: "I am Oganga.",
         thumbnail: ImageOne,
         videoSrc: VideoOne,
         views: "80K",
@@ -25,7 +25,7 @@ const videos = [
     },
     {
         id: 3,
-        title: "Hey, Bubba!",
+        title: "React version 19",
         thumbnail: ImageOne,
         videoSrc: VideoOne,
         views: "50K",
