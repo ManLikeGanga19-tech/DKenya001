@@ -14,8 +14,6 @@ import {
   PlaylistAddOutlined,
   WatchLaterOutlined,
 } from "@mui/icons-material";
-import { Box, Typography, IconButton, useMediaQuery, useTheme } from "@mui/material";
-import { ThumbUp, ThumbDown, WatchLater, PlaylistAdd } from "@mui/icons-material";
 import CommentSection from "../components/CommentSection/CommentSection";
 import RelatedVideos from "../components/RelatedVideos/RelatedVideos";
 
@@ -48,7 +46,12 @@ const VideoPage = () => {
         }}
       >
         {/* Main Content */}
-        <Box sx={{ flex: 3 }}>
+        <Box
+          sx={{
+            flex: isMobile ? "unset" : 3,
+            width: isMobile ? "100%" : "auto",
+          }}
+        >
           {/* Video Player */}
           <Box
             sx={{
@@ -105,12 +108,12 @@ const VideoPage = () => {
 
           {/* Mobile: Show RelatedVideos before video and comments */}
           {isMobile && (
-            <Box sx={{ mb: 2 }}>
+            <Box sx={{ mb: 2, width: "100%" }}>
               <RelatedVideos />
             </Box>
           )}
           {/* Comments Section */}
-          <Box>
+          <Box sx={{ width: "100%" }}>
             <CommentSection />
           </Box>
         </Box>
@@ -119,8 +122,8 @@ const VideoPage = () => {
         {!isMobile && (
           <Box
             sx={{
-              flex: 1,
-              minWidth: "400px",
+              width: "30%",
+              minWidth: "100px",
             }}
           >
             <RelatedVideos />
@@ -129,7 +132,6 @@ const VideoPage = () => {
       </Box>
     </Box>
   );
-
 };
 
 export default VideoPage;
