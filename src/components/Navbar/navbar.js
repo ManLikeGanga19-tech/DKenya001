@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import {
   AppBar,
@@ -26,7 +24,6 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-
 import HistoryIcon from "@mui/icons-material/History";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -36,11 +33,16 @@ import HelpIcon from "@mui/icons-material/Help";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 import HomeIcon from "@mui/icons-material/Home";
 
+import { useAuth } from "../../context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+
 const Navbar = ({ darkMode, toggleTheme }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const { userLoggedIn } = useAuth();
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
@@ -52,6 +54,15 @@ const Navbar = ({ darkMode, toggleTheme }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      handleClose();
+    } catch (error) {
+      console.error("Logout failed:", error.message);
+    }
   };
 
   const DrawerList = (
@@ -146,12 +157,15 @@ const Navbar = ({ darkMode, toggleTheme }) => {
             <IconButton color="inherit" onClick={toggleTheme}>
               {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
+
             <IconButton color="inherit" sx={{ display: { sm: "flex" } }}>
               <VideoCallIcon />
             </IconButton>
+
             <IconButton color="inherit" sx={{ display: { sm: "flex" } }}>
               <NotificationsIcon />
             </IconButton>
+
             <IconButton color="inherit" onClick={handleAccountClick}>
               <AccountCircleIcon />
             </IconButton>
@@ -162,12 +176,18 @@ const Navbar = ({ darkMode, toggleTheme }) => {
               onClose={handleClose}
               PaperProps={{ sx: { width: "200px" } }}
             >
-              <MenuItem onClick={handleClose} component={Link} to="/signin">
-                Sign In
-              </MenuItem>
-              <MenuItem onClick={handleClose} component={Link} to="/signup">
-                Sign Up
-              </MenuItem>
+              {userLoggedIn ? (
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              ) : (
+                <>
+                  <MenuItem onClick={handleClose} component={Link} to="/signin">
+                    Sign In
+                  </MenuItem>
+                  <MenuItem onClick={handleClose} component={Link} to="/signup">
+                    Sign Up
+                  </MenuItem>
+                </>
+              )}
             </Menu>
           </Box>
         </Toolbar>
