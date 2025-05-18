@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   TextField,
@@ -6,8 +6,11 @@ import {
   Typography,
   Box,
   Paper,
+  InputAdornment,
+  IconButton,
   Link as MuiLink,
 } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "./auth";
@@ -16,19 +19,24 @@ const SignInPage = () => {
   const { userLoggedIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (userLoggedIn) {
+      navigate("/");
+    }
+  }, [userLoggedIn, navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
-
     if (!isSigningIn) {
       setIsSigningIn(true);
       try {
         await doSignInWithEmailAndPassword(email, password);
-        navigate("/"); // Redirect after sign-in
       } catch (error) {
         setErrorMessage(error.message);
         setIsSigningIn(false);
@@ -36,20 +44,14 @@ const SignInPage = () => {
     }
   };
 
-  const onGoogleSignIn = async (e) => {
+  const onGoogleSignIn = (e) => {
     e.preventDefault();
     setErrorMessage("");
+    doSignInWithGoogle(); // Google redirect starts
+  };
 
-    if (!isSigningIn) {
-      setIsSigningIn(true);
-      try {
-        await doSignInWithGoogle();
-        navigate("/");
-      } catch (error) {
-        setErrorMessage(error.message);
-        setIsSigningIn(false);
-      }
-    }
+  const toggleShowPassword = () => {
+    setShowPassword((prev) => !prev);
   };
 
   return (
@@ -75,15 +77,25 @@ const SignInPage = () => {
             margin="normal"
             required
           />
+
           <TextField
             label="Password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             variant="outlined"
             fullWidth
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             margin="normal"
             required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={toggleShowPassword} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
 
           <Box textAlign="center" sx={{ marginTop: 2 }}>
@@ -114,7 +126,6 @@ const SignInPage = () => {
             color="secondary"
             onClick={onGoogleSignIn}
             fullWidth
-            disabled={isSigningIn}
           >
             Sign In with Google
           </Button>

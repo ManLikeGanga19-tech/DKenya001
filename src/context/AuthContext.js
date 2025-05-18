@@ -1,23 +1,42 @@
-import  React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { auth } from "../firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, getRedirectResult } from "firebase/auth";
 
 const AuthContext = React.createContext();
 
-export  function useAuth() {
-  return useContext(AuthContext); 
+export function useAuth() {
+  return useContext(AuthContext);
 }
+
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, initializeUser);
+    // Wrap async logic in an async function
+    getRedirectResult(auth)
+    .then((result) => {
+      if (result) {
+        initializeUser(result.user); 
+      }
+    })
+    .catch((error) => {
+      console.error("Error from redirect sign-in:", error);
+    });
+
+    // Subscribe to auth state changes
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      initializeUser(user);
+      setLoading(false);
+    });
+
+    // Cleanup subscription on unmount
     return unsubscribe;
   }, []);
 
-  async function initializeUser(user) {
+  // Initialize user and logged in state
+  function initializeUser(user) {
     if (user) {
       setCurrentUser({ ...user });
       setUserLoggedIn(true);
@@ -25,13 +44,14 @@ export function AuthProvider({ children }) {
       setCurrentUser(null);
       setUserLoggedIn(false);
     }
-    setLoading(false);
   }
+
   const value = {
     currentUser,
     userLoggedIn,
     loading,
   };
+
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
