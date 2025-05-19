@@ -11,6 +11,9 @@ import History from "./components/SideBar/History/history";
 import WatchLater from "./components/SideBar/WatchLater/WatchLater";
 import TrendingVideos from "./components/SideBar/Trending/TrendingVideos";
 import LikedVideos from "./components/SideBar/LikedVideos/LikedVideos";
+import ProfileSettings from "./pages/settings/ProfileSettings";
+import ProtectedRoute from "./ProtectedRoute";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -39,6 +42,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Toaster position="top-right" reverseOrder={false} />
       <Router>
         <Box display="flex" flexDirection="column" minHeight="100vh">
           <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
@@ -51,7 +55,22 @@ const App = () => {
               <Route path="/history" element={<History />} />
               <Route path="/watch-later" element={<WatchLater />} />
               <Route path="/liked-videos" element={<LikedVideos />} />
-              <Route path="/trending" element={<TrendingVideos />} />
+              <Route
+                path="/profile-settings"
+                element={
+                  <ProtectedRoute>
+                    <ProfileSettings />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/trending"
+                element={
+                  <ProtectedRoute>
+                    <TrendingVideos />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </Box>
           <Footer />

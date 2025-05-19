@@ -177,7 +177,23 @@ const Navbar = ({ darkMode, toggleTheme }) => {
               PaperProps={{ sx: { width: "200px" } }}
             >
               {userLoggedIn ? (
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to="/profile-settings"
+                  >
+                    Profile Settings
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    component={Link}
+                    to={`/user/${userLoggedIn.uid}`}
+                  >
+                    View Public Profile
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </>
               ) : (
                 <>
                   <MenuItem onClick={handleClose} component={Link} to="/signin">
