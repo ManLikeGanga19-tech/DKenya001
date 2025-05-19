@@ -12,6 +12,7 @@ import WatchLater from "./components/SideBar/WatchLater/WatchLater";
 import TrendingVideos from "./components/SideBar/Trending/TrendingVideos";
 import LikedVideos from "./components/SideBar/LikedVideos/LikedVideos";
 import ProfileSettings from "./pages/settings/ProfileSettings";
+import PublicProfile from "./pages/settings/PublicProfile";
 import ProtectedRoute from "./ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 
@@ -68,6 +69,14 @@ const App = () => {
                 element={
                   <ProtectedRoute>
                     <TrendingVideos />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/user/:userId"
+                element={
+                  <ProtectedRoute>
+                     <PublicProfile />
                   </ProtectedRoute>
                 }
               />
