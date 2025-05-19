@@ -1,9 +1,18 @@
-# app/main.py
-
 from fastapi import FastAPI
-from app.database import SessionLocal
+from app.database import SessionLocal, Base, engine
+from app.routers import auth
 
 app = FastAPI()
+
+# Create tables on startup
+
+
+@app.on_event("startup")
+def on_startup():
+    Base.metadata.create_all(bind=engine)
+
+
+app.include_router(auth.router)
 
 
 @app.get("/")
