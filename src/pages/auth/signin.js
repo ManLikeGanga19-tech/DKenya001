@@ -13,7 +13,11 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "./auth";
+import {
+  doSignInWithEmailAndPassword,
+  doSignInWithGoogle,
+  sendTokenToBackend,
+} from "./auth";
 
 const SignInPage = () => {
   const { userLoggedIn } = useAuth();
@@ -36,18 +40,42 @@ const SignInPage = () => {
     if (!isSigningIn) {
       setIsSigningIn(true);
       try {
-        await doSignInWithEmailAndPassword(email, password);
+        // Sign in with Firebase
+        const userCredential = await doSignInWithEmailAndPassword(
+          email,
+          password
+        );
+
+        // Get Firebase ID token
+        const idToken = await userCredential.user.getIdToken();
+
+        // Send token to backend for verification and user creation
+        await sendTokenToBackend(idToken);
+
+        // After successful backend auth, navigate to home or dashboard
+        navigate("/");
       } catch (error) {
-        setErrorMessage(error.message);
+        setErrorMessage(error.message || "Sign-in failed");
+      } finally {
         setIsSigningIn(false);
       }
     }
   };
 
-  const onGoogleSignIn = (e) => {
+  const onGoogleSignIn = async (e) => {
     e.preventDefault();
     setErrorMessage("");
-    doSignInWithGoogle(); // Google redirect starts
+    try {
+      const userCredential = await doSignInWithGoogle();
+
+      const idToken = await userCredential.user.getIdToken();
+
+      await sendTokenToBackend(idToken);
+
+      navigate("/");
+    } catch (error) {
+      setErrorMessage(error.message || "Google Sign-in failed");
+    }
   };
 
   const toggleShowPassword = () => {

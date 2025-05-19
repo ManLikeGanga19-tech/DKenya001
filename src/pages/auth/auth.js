@@ -35,3 +35,20 @@ export const doSendEmailVerification = () => {
     url: `${window.location.origin}/home`,
   });
 };
+
+export const sendTokenToBackend = async (idToken) => {
+  const response = await fetch("http://localhost:8000/auth/firebase", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id_token: idToken }), 
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.detail || "Backend login failed");
+  }
+
+  return await response.json();
+};

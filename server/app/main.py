@@ -1,11 +1,17 @@
 from fastapi import FastAPI
 from app.database import SessionLocal, Base, engine
 from app.routers import auth
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Create tables on startup
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.on_event("startup")
 def on_startup():
