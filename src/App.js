@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider, CssBaseline, Box } from "@mui/material";
 import Navbar from "./components/Navbar/navbar";
@@ -8,22 +8,33 @@ import VideoPage from "../src/pages/VideoPage";
 import SignIn from "./pages/auth/signin";
 import SignUp from "./pages/auth/signup";
 import History from "./components/SideBar/History/history";
-import  WatchLater  from "./components/SideBar/WatchLater/WatchLater";
+import WatchLater from "./components/SideBar/WatchLater/WatchLater";
 import TrendingVideos from "./components/SideBar/Trending/TrendingVideos";
 import LikedVideos from "./components/SideBar/LikedVideos/LikedVideos";
+
 const App = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    const storedTheme = localStorage.getItem("darkMode");
+    return storedTheme === "true";
+  });
 
   const toggleTheme = () => {
-    setDarkMode((prev) => !prev);
+    setDarkMode((prev) => {
+      const newMode = !prev;
+      localStorage.setItem("darkMode", newMode.toString());
+      return newMode;
+    });
   };
 
-  const theme = useMemo(() =>
-    createTheme({
-      palette: {
-        mode: darkMode ? "dark" : "light",
-      },
-    }), [darkMode]);
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: darkMode ? "dark" : "light",
+        },
+      }),
+    [darkMode]
+  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -37,10 +48,10 @@ const App = () => {
               <Route path="/video/:title" element={<VideoPage />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/history" element={<History/>}/>
-              <Route path="/watch-later" element={<WatchLater/>}/>
-              <Route path="/liked-videos" element={<LikedVideos/>}/>
-              <Route path="/trending" element={<TrendingVideos/>}/>
+              <Route path="/history" element={<History />} />
+              <Route path="/watch-later" element={<WatchLater />} />
+              <Route path="/liked-videos" element={<LikedVideos />} />
+              <Route path="/trending" element={<TrendingVideos />} />
             </Routes>
           </Box>
           <Footer />
